@@ -69,16 +69,20 @@ st.markdown("""
 with st.sidebar:
     st.header("系统信息")
     st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统")
-    st.markdown("### 使用说明：")
-    st.markdown("1. 在下方输入框中输入您的问题")
-    st.markdown("2. 点击'提交问题'按钮")
-    st.markdown("3. 系统会从Get笔记中检索相关内容并生成回答")
-    st.markdown("4. 回答会包含引用来源和相关笔记片段")
-    
-    st.markdown("### 注意事项：")
-    st.markdown("- 请确保已配置好 API_KEY 和 KB_ID 环境变量")
-    st.markdown("- 问题描述越具体，回答越准确")
 
+    st.markdown("### 健医融合 · 科学健康管理系统")
+    st.markdown("以医疗专业为基础，融合健康管理理念，打造全周期、智能化的科学健康服务体系。")
+
+    st.markdown("### ✨ 核心价值")
+    st.markdown("- **健医融合**：打通医疗与健康边界，实现连续照护")
+    st.markdown("- **科学为本**：标准化流程 + 数据化支撑，提升决策质量")
+    st.markdown("- **全周期覆盖**：监测 → 评估 → 干预 → 随访，闭环管理")
+    st.markdown("- **智能高效**：AI辅助分析，显著提升服务效率")
+
+    st.markdown("---")
+    st.markdown("### 📞 技术支持")
+    st.markdown("**开发**：梁亮")  
+    st.markdown("**电话/微信**：18578974141（微信同号）")
 # 主界面
 st.title("健医融合・科学健康管理系统")
 st.markdown("-----")
