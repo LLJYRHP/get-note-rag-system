@@ -89,7 +89,7 @@ with col1:
     st.subheader("💬 智能咨询")
     question = st.text_area(
         label="请输入您的问题...",
-        placeholder="例如: 如何通过饮食改善高血压？",
+        placeholder="例如:如何通过饮食改善高血压？",
         height=150
     )
     submit_button = st.button("📝 提交问题", type="primary", use_container_width=True)
