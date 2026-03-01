@@ -81,25 +81,23 @@ with st.sidebar:
 
 # 主界面
 st.title("健医融合・科学健康管理系统")
-st.markdown("---")
+st.markdown("-----")
 
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader("📋 问题输入")
-question = st.text_area(
-    label="请输入您的问题...",
-    placeholder="例如: 如何使用LangChain构建RAG系统？",
-height=150
-)
-
-submit_button = st.button("📝 提交问题", type="primary", use_container_width=True)
+    st.subheader("💬 智能咨询")
+    question = st.text_area(
+        label="请输入您的问题...",
+        placeholder="例如: 如何通过饮食改善高血压？",
+        height=150
+    )
+    submit_button = st.button("📝 提交问题", type="primary", use_container_width=True)
 
 with col2:
-    st.subheader("📚 相关笔记")
+    st.subheader("📑 参考依据")
     notes_placeholder = st.empty()
-    notes_placeholder.info("提交问题后，相关笔记会显示在这里")
-
+    notes_placeholder.info("提交问题后，系统将展示回答所依据的权威内容")
 # 处理逻辑
 if submit_button and question:
     if not question.strip():
