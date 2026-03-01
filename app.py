@@ -67,34 +67,34 @@ st.markdown("""
 
 # 侧边栏
 with st.sidebar:
-    st.header("系统信息")
-    st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统")
+    st.header("系统信息")st.标题(“系统信息”)
+    st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统"这是一个基于Get笔记API的检索增强生成(RAG)问答系统)st.信息(“这是一个基于Get笔记API的检索增强生成这是一个基于Get笔记API的检索增强生成(RAG)问答系统”)
     
     st.markdown("### 使用说明：")
     st.markdown("1. 在下方输入框中输入您的问题")
-    st.markdown("2. 点击'提交问题'按钮")
-    st.markdown("3. 系统会从Get笔记中检索相关内容并生成回答")
-    st.markdown("4. 回答会包含引用来源和相关笔记片段")
+    st.markdown("2. 点击'提交问题'按钮")st.markdown("2. 点击'提交问题'按钮'")
+    st.markdown("3. 系统会从Get笔记中检索相关内容并生成回答")st.markdown(“3. 系统会从Get笔记中检索相关内容并生成回答”)
+    st.markdown("4. 回答会包含引用来源和相关笔记片段")st.markdown(“4. 回答会包含引用来源和相关笔记片段”)
     
-    st.markdown("### 注意事项：")
+    st.markdown("### 注意事项：")st.markdown(“### 注意事项：”)
     st.markdown("- 请确保已配置好 API_KEY 和 KB_ID 环境变量")
     st.markdown("- 问题描述越具体，回答越准确")
 
 # 主界面
-st.title("📝 Get笔记RAG问答系统")
+st.title("🧠 健医融合・科学健康管理系统")
 st.markdown("---")
 
 col1, col2 = st.columns([2, 1])
 
-with col1:
+with col1:与col1:
     st.subheader("📋 问题输入")
-    question = st.text_area(
+    question = st.text_area(问题 = st.文本区域(
         "请输入您的问题：",
-        placeholder="例如：如何使用LangChain构建RAG系统？",
+        placeholder="例如：如何使用LangChain构建RAG系统？",placeholder=“例如：如何使用LangChain构建RAG系统？”,
         height=150
     )
     
-    submit_button = st.button("🚀 提交问题", type="primary", use_container_width=True)
+    submit_button = st.button("🚀 提交问题", type="primary", use_container_width=True)submit_button = st.button(“提交问题”, type=“primary”, use_container_width=True)
 
 with col2:
     st.subheader("📚 相关笔记")
