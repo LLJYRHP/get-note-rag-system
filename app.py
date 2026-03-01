@@ -67,7 +67,7 @@ st.markdown("""
 
 # 侧边栏
 with st.sidebar:
-    st.header("系统信息")st.标题(“系统信息”)
+    st.header("系统信息")
     st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统"这是一个基于Get笔记API的检索增强生成(RAG)问答系统)st.信息(“这是一个基于Get笔记API的检索增强生成这是一个基于Get笔记API的检索增强生成(RAG)问答系统”)
     
     st.markdown("### 使用说明：")
