@@ -88,7 +88,7 @@ col1, col2 = st.columns([2, 1])
 with col1:
     st.subheader("📋 问题输入")
     question = st.text_area(
-        label="请输入您的问题...",
+    label="请输入您的问题...",
         placeholder="例如:如何使用LangChain构建RAG系统？"
         height=150
     )
