@@ -89,11 +89,11 @@ with col1:与col1:
     st.subheader("📋 问题输入")
     question = st.text_area(问题 = st.文本区域(
         "请输入您的问题：",
-        placeholder="例如：如何使用LangChain构建RAG系统？",placeholder=“例如：如何使用LangChain构建RAG系统？”,
+        placeholder="例如：如何使用LangChain构建RAG系统？"
         height=150
     )
     
-    submit_button = st.button("🚀 提交问题", type="primary", use_container_width=True)submit_button = st.button(“提交问题”, type=“primary”, use_container_width=True)
+    submit_button = st.button("🚀 提交问题", type="primary", use_container_width=True)
 
 with col2:
     st.subheader("📚 相关笔记")
