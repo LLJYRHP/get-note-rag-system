@@ -70,7 +70,7 @@ with st.sidebar:
     st.header("系统信息")
     st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统")
 
-    st.markdown("### 健医融合 · 科学健康管理系统")
+    st.markdown("### 健医融合·科学健康管理系统")
     st.markdown("以医疗专业为基础，融合健康管理理念，打造全周期、智能化的科学健康服务体系。")
 
     st.markdown("### ✨ 核心价值")
