@@ -55,7 +55,7 @@ class AnswerGenerator:
             template=template
         )
     
-    def generate(self, query: str, notes: List[Dict[str, Any]]) -> Dict[str, Any]:
+    def generate(self, query: str, notes: List[Dict[str, Any]], history: str = "") -> Dict[str, Any]:
         """
         生成回答
         
