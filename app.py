@@ -207,11 +207,7 @@ with col2:
                     st.warning("抱歉，未检索到与您的问题相关的笔记内容。请尝试调整问题表述或提供更多关键词。")
                     notes_placeholder.warning("无相关笔记")
                     
-        except Exception as e:
-            logger.error(f"处理过程中发生错误：{e}")
-            st.error(f"处理过程中发生错误：{str(e)}")
-            notes_placeholder.error("检索失败")
-
+       
 # 页脚
 st.markdown("---")
 st.caption("© 2026 Get笔记RAG问答系统 - 基于LangChain和Streamlit构建")
