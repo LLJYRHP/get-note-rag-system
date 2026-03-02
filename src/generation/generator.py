@@ -23,7 +23,7 @@ class AnswerGenerator:
         self.prompt_template = self._create_prompt_template()
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt_template)
     
-    def _create_prompt_template(self) -> PromptTemplate:
+      def _create_prompt_template(self) -> PromptTemplate:
         """
         创建提示模板
         
@@ -38,6 +38,10 @@ class AnswerGenerator:
 2. 明确标注引用来源，格式为：[笔记X]，其中X是笔记的编号
 3. 对引用的内容进行高亮显示
 4. 当检索不到相关笔记时，明确提示并建议调整问题
+5. 如果用户提供了历史对话，请结合上下文理解当前问题。
+
+历史对话：
+{history}
 
 用户问题：{query}
 
@@ -45,10 +49,9 @@ class AnswerGenerator:
 {context}
 
 请生成回答：
-        """
-        
+"""
         return PromptTemplate(
-            input_variables=["query", "context"],
+            input_variables=["query", "context", "history"],
             template=template
         )
     
