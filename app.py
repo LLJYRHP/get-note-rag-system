@@ -83,6 +83,9 @@ with st.sidebar:
     st.write("**开发**：梁亮")
     st.write("**电话/微信**：18578974141（微信同号）")
 # 主界面
+# 初始化会话状态（存储聊天历史）
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 st.title("健医融合・科学健康管理系统")
 st.markdown("-----")
 
