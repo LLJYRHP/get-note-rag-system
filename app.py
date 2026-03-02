@@ -70,19 +70,12 @@ with st.sidebar:
     st.header("系统信息")
     st.info("这是一个基于Get笔记API的检索增强生成(RAG)问答系统")
 
-    st.markdown("### 健医融合·科学健康管理系统")
+    # 测试用：先只放一句话
+    st.markdown("### 健医融合 · 科学健康管理系统")
     st.markdown("以医疗专业为基础，融合健康管理理念，打造全周期、智能化的科学健康服务体系。")
 
-    st.markdown("### ✨ 核心价值")
-    st.markdown("- **健医融合**：打通医疗与健康边界，实现连续照护")
-    st.markdown("- **科学为本**：标准化流程 + 数据化支撑，提升决策质量")
-    st.markdown("- **全周期覆盖**：监测 → 评估 → 干预 → 随访，闭环管理")
-    st.markdown("- **智能高效**：AI辅助分析，显著提升服务效率")
-
-    st.markdown("---")
-    st.markdown("### 📞 技术支持")
-    st.markdown("**开发**：梁亮")  
-    st.markdown("**电话/微信**：18578974141（微信同号）")
+    # 添加测试语句
+    st.write("✅ 测试：代码已加载！")
 # 主界面
 st.title("健医融合・科学健康管理系统")
 st.markdown("-----")
