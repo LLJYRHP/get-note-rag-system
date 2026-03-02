@@ -81,7 +81,7 @@ class AnswerGenerator:
             context = self._build_context(notes)
             
             # 生成回答
-            result = self.chain.run(query=query, context=context)
+            result = self.chain.run(query=query, context=context, history=history)
             
             # 提取引用信息
             references = self._extract_references(notes)
