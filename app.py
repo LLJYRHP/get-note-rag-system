@@ -80,6 +80,7 @@ with st.sidebar:
     # 添加核心价值
     st.markdown("### ✨ 核心价值")
     st.markdown("- **健医融合**：打通医疗与健康边界，实现连续照护")
+    st.markdown("- **科学为本**：标准化流程 + 数据化支撑，提升决策质量")
 # 主界面
 st.title("健医融合・科学健康管理系统")
 st.markdown("-----")
