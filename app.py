@@ -104,38 +104,55 @@ with col2:
     st.subheader("📑 参考依据")
     notes_placeholder = st.empty()
     notes_placeholder.info("提交问题后，系统将展示回答所依据的权威内容")
-# 处理逻辑
-if submit_button and question:
-    if not question.strip():
-        st.warning("请输入问题内容！")
-    else:
-        try:
-            # 显示加载动画
-            with st.spinner('正在检索笔记并生成回答，请稍候...'):
-                start_time = time.time()
+    # 处理逻辑
+    if submit_button and question:
+        if not question.strip():
+            st.warning("请输入问题内容！")
+        else:
+            try:
+                # 1. 将用户当前问题加入历史记录
+                st.session_state.messages.append({"role": "user", "content": question})
                 
-                # 1. 检索笔记
-                logger.info(f"用户提交查询：{question}")
-                notes = retrieve_notes(question, top_k=3)
+                # 显示用户刚发的问题
+                with st.chat_message("user"):
+                    st.write(question)
+
+                # 2. 准备发送给 AI 的完整上下文（最近 5 轮对话）
+                history_text = ""
+                for msg in st.session_state.messages[-5:]: # 只取最近 5 轮，防止太长
+                    role = "用户" if msg["role"] == "user" else "助手"
+                    history_text += f"{role}: {msg['content']}\n"
+
+                # 显示加载动画
+                with st.spinner("正在结合历史记忆生成回答..."):
+                    generator = AnswerGenerator()
+                    # 先检索笔记 (保持原有逻辑)
+                    notes = retrieve_notes(question, top_k=3)
+                    
+                    # 调用后端，传入 history_text
+                    result = generator.generate(query=question, notes=notes, history=history_text) 
                 
-                # 2. 判断结果类型并展示
-                has_ai_answer = False
-                ai_answer_content = ""
-                regular_notes = []
-                
-                for note in notes:
-                    # 检查是否是 AI 生成的回答 (我们之前设定的标记)
-                    if note.get("source") == "Get 笔记 AI 生成" or note.get("title") == "AI 综合回答":
-                        has_ai_answer = True
-                        ai_answer_content = note.get("content", "")
-                    else:
-                        regular_notes.append(note)
-                
-                end_time = time.time()
-                duration = end_time - start_time
-                
-                # 显示耗时
-                st.success(f"处理完成，用时 {duration:.2f} 秒")
+                answer = result.get("answer", "")
+                references = result.get("references", [])
+
+                # 3. 将 AI 回答加入历史记录
+                st.session_state.messages.append({"role": "assistant", "content": answer})
+
+                # 4. 显示 AI 回答
+                with st.chat_message("assistant"):
+                    st.write(answer)
+                    if references:
+                        with st.expander("📖 查看相关笔记"):
+                            st.write(references)
+                    
+                # 更新右侧参考依据
+                notes_placeholder.info("已基于知识库及历史对话生成综合回答")
+
+            except Exception as e:
+                st.error(f"❌ 系统出错：{str(e)}")
+                # 如果出错，移除刚才添加的用户消息，避免脏数据
+                if st.session_state.messages and st.session_state.messages[-1]["role"] == "user":
+                    st.session_state.messages.pop() 
                 
                 # 3. 展示结果
                 st.subheader("💡 回答结果")
