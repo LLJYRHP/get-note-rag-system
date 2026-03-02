@@ -1,6 +1,7 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-from langchain.llms import OpenAI
+from langchain_openai import ChatOpenAI 
+import os
 from typing import Dict, List, Any
 from src.utils.logger import get_logger
 
@@ -19,7 +20,17 @@ class AnswerGenerator:
         """
         # 这里使用OpenAI作为示例，实际部署时可以替换为其他LLM
         # 注意：需要在环境变量中设置OPENAI_API_KEY
-        self.llm = OpenAI(temperature=0.3)
+                # 获取环境变量
+        api_key = os.getenv("SILICONFLOW_API_KEY")
+        model_name = os.getenv("SILICONFLOW_MODEL", "Qwen/Qwen3-8B")
+        
+        # 使用硅基流动的兼容接口
+        self.llm = ChatOpenAI(
+            openai_api_key=api_key,
+            openai_api_base="https://api.siliconflow.cn/v1",
+            model_name=model_name,
+            temperature=0.3
+        )
         self.prompt_template = self._create_prompt_template()
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt_template)
     
