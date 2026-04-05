@@ -1,0 +1,19 @@
+{
+  "sessions": [
+    {
+      "session_id": "f88a8dd2a7478991",
+      "user_id": "default",
+      "start_time": "2026-03-04 23:42:42",
+      "end_time": null,
+      "duration_minutes": 0,
+      "activities": []
+    }
+  ],
+  "quizzes": [],
+  "statistics": {
+    "total_sessions": 1,
+    "total_learning_time": 0,
+    "total_quizzes": 0,
+    "average_score": 0
+  }
+}

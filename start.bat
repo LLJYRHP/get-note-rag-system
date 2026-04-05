@@ -1,41 +1,33 @@
 @echo off
+chcp 65001 >nul
+title Get 笔记 RAG 问答系统启动器
 
-REM 启动脚本 - Get笔记RAG问答系统
+echo ========================================
+echo   Get 笔记 RAG 问答系统启动器
+echo ========================================
+echo.
+echo 正在启动应用...
+echo.
 
-REM 检查Python是否安装
-python --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo 错误: 未找到Python，请先安装Python 3.8+
+REM 获取当前脚本所在目录
+set "CURRENT_DIR=%~dp0"
+
+REM 检查 Python 是否存在
+if exist "C:\Users\30314\python-sdk\python3.13.2\python.exe" (
+    echo ✓ Python 已检测到
+    cd /d "%CURRENT_DIR%"
+    echo 当前目录：%CD%
+    "C:\Users\30314\python-sdk\python3.13.2\python.exe" -m streamlit run app.py --server.port 8502
+) else (
+    echo × 未找到 Python
+    echo 请确保已安装 Python 3.13.2
+    echo Python 路径：C:\Users\30314\python-sdk\python3.13.2\python.exe
     pause
     exit /b 1
 )
 
-REM 检查pip是否安装
-pip --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo 错误: 未找到pip，请确保Python安装正确
-    pause
-    exit /b 1
-)
-
-REM 安装依赖
- echo 正在安装依赖...
-pip install -r requirements.txt
-if %errorlevel% neq 0 (
-    echo 错误: 依赖安装失败
-    pause
-    exit /b 1
-)
-
-REM 检查环境变量文件
-if not exist .env (
-    echo 错误: .env文件不存在，请根据.env.example创建.env文件并配置API_KEY和KB_ID
-    pause
-    exit /b 1
-)
-
-REM 启动Streamlit应用
-echo 正在启动Streamlit应用...
-streamlit run app.py
-
+echo.
+echo ========================================
+echo 应用已关闭
+echo ========================================
 pause

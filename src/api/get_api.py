@@ -31,7 +31,8 @@ class GetNoteAPI:
         self.headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
-            "X-OAuth-Version": "1" 
+            "Connection": "keep-alive",
+            "X-OAuth-Version": "1"
         }
 
         # 验证必要的环境变量
@@ -57,12 +58,11 @@ class GetNoteAPI:
         url = f"{self.base_url}/knowledge/search"
         
         # 构造符合官方文档的请求体 (JSON Payload)
-        # 关键修改：deep_seek=True (开启深度思考), refs=True (获取引用来源)
         payload = {
             "question": query,              # 参数名必须是 question
-            "topic_ids": [self.kb_id],      # 必须是列表格式 ["kb_id"]
+            "topic_ids": [self.kb_id],      # 使用 topic_ids 数组
             "deep_seek": True,              # 开启深度思考，进行更深入的分析
-            "refs": True,                   # 开启引用来源，返回具体的笔记片段
+            "refs": False,                  # 引用在 stream 模式生效
             "history": []                   # 暂不传递历史记录
         }
         
@@ -82,14 +82,12 @@ class GetNoteAPI:
             # ==========================================
             # ✅ 核心修复：专门处理 Get 笔记 API 的特殊返回格式
             # ==========================================
-            # 正常格式可能是 {'data': [...]}
-            # 但 Get 笔记 AI 回答通常在 {'c': {'answers': '...'}} 中
+            # 正常格式：{"h": {...}, "c": {"answers": "...", "deep_seek": "..."}}
             
             # 1. 优先尝试提取 AI 生成的答案 (c.answers)
             if isinstance(result, dict):
                 if 'c' in result and isinstance(result['c'], dict):
                     answers = result['c'].get('answers', '')
-                    refs = result['c'].get('refs', [])
                     
                     combined_result = []
                     
@@ -102,41 +100,48 @@ class GetNoteAPI:
                             "title": "AI 综合回答"
                         })
                     
-                    # 如果有引用片段，也加入结果列表
-                    if refs:
-                        logger.info(f"成功从 'c.refs' 提取到 {len(refs)} 条引用笔记")
-                        for ref in refs:
-                            combined_result.append({
-                                "title": ref.get("title", "未知标题"),
-                                "content": ref.get("content", ""),
-                                "source": "原始笔记片段"
-                            })
-                    
                     if combined_result:
                         return combined_result
-                
-                # 2. 如果没找到 c.answers/c.refs，尝试提取原始笔记片段 (data/items)
-                data = result.get("data", [])
-                if isinstance(data, dict):
-                    data = data.get("items", []) or data.get("list", []) or data.get("notes", []) or [data]
-                elif not data and result:
-                    data = result.get("items", []) or result.get("list", []) or [result]
-                
-                if data:
-                    logger.info(f"成功从 'data' 提取到 {len(data)} 条笔记片段")
-                    return data
 
-            # 3. 如果都没找到，返回空列表
             logger.warning("未在 API 响应中找到有效数据字段")
             return []
             
         except requests.exceptions.RequestException as e:
             logger.error(f"网络请求错误：{e}")
-            error_detail = ""
-            if hasattr(e, 'response') and e.response is not None:
-                error_detail = f"服务器响应：{e.response.text}"
-                logger.error(error_detail)
-            raise RuntimeError(f"检索笔记时发生错误：{str(e)} {error_detail}")
+            return []
         except Exception as e:
             logger.error(f"未知错误：{e}")
-            raise RuntimeError(f"检索笔记时发生错误：{str(e)}")
+            return []
+
+    def save_note(self, title: str, content: str) -> bool:
+        """
+        将错题保存回 Get 笔记知识库
+        Args:
+            title: 错题笔记标题
+            content: 错题内容及 AI 解析
+        Returns:
+            是否保存成功
+        """
+        logger.info(f"准备同步错题到 Get 笔记，标题：{title}")
+        
+        # 尝试使用基于 openapi.biji.com 的保存接口（需要 note.content.write 权限）
+        url = f"{self.base_url}/note/create"
+        
+        payload = {
+            "title": title,
+            "content": content,
+            "topic_ids": [self.kb_id]
+        }
+        
+        try:
+            response = requests.post(url, headers=self.headers, json=payload, timeout=30)
+            
+            if response.status_code == 200:
+                logger.info(f"✅ 错题同步成功！API 返回: {response.json()}")
+                return True
+            else:
+                logger.warning(f"同步失败，状态码：{response.status_code}，如果报错 404 或无权限，请检查 API 端点和 Key 的 write 权限。")
+                return False
+        except Exception as e:
+            logger.error(f"同步错题时发生异常：{e}")
+            return False

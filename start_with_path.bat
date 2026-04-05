@@ -1,0 +1,6 @@
+@echo off
+echo 启动健医融合·科学健康管理系统...
+echo 使用系统PATH中的Python...
+python -m streamlit run app.py --server.port 8502
+echo 系统已关闭。
+pause

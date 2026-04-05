@@ -1,0 +1,51 @@
+{
+  "27ce0d7c3b8fdfc17e37fa3d4f06c01c": {
+    "session_id": "27ce0d7c3b8fdfc17e37fa3d4f06c01c",
+    "user_id": "test_user",
+    "created_at": "2026-03-04T21:29:58.528620",
+    "last_updated": "2026-03-04T21:29:58.541291",
+    "messages": [
+      {
+        "role": "user",
+        "content": "如何通过饮食改善高血压？",
+        "timestamp": "2026-03-04T21:29:58.531686",
+        "metadata": {}
+      },
+      {
+        "role": "assistant",
+        "content": "建议您低盐饮食，多吃蔬菜水果...",
+        "timestamp": "2026-03-04T21:29:58.532819",
+        "metadata": {}
+      },
+      {
+        "role": "user",
+        "content": "那运动方面呢？",
+        "timestamp": "2026-03-04T21:29:58.534782",
+        "metadata": {}
+      },
+      {
+        "role": "assistant",
+        "content": "建议每周至少 150 分钟中等强度运动...",
+        "timestamp": "2026-03-04T21:29:58.535783",
+        "metadata": {}
+      },
+      {
+        "role": "user",
+        "content": "谢谢，我记住了",
+        "timestamp": "2026-03-04T21:29:58.538299",
+        "metadata": {}
+      },
+      {
+        "role": "user",
+        "content": "我的电话是 [手机号已隐藏]",
+        "timestamp": "2026-03-04T21:29:58.541291",
+        "metadata": {}
+      }
+    ],
+    "metadata": {
+      "topic": null,
+      "keywords": [],
+      "sentiment": "neutral"
+    }
+  }
+}
